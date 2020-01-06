@@ -3,22 +3,37 @@
 ## National Prototype
 
 This repo currently has a national level prototype of what type of work we could present. To get the app working on your computer you'll need to download this repo as well as downloading the data and place it in the currently empty data folder in `harrishack-district`. They should look like the following: `harrishack-districting/data/congress/congress.gpkg` and `harrishack-district/data/senate/senate.gpkg` The data can be found
-[here](https://drive.google.com/open?id=1PBM6Byz1QJWTwcls8ejldxlAsmAjRY-k). Make sure to install any missing R packages. If you have any questions or complications feel free to message Daniel on slack.
+[here](https://drive.google.com/open?id=1PBM6Byz1QJWTwcls8ejldxlAsmAjRY-k).
+
+### How to get it running
+1. Downloading the repo
+`git clone git@github.com:superchordate/harrishack-districting.git`
+2. Place the data in the correct spot (read above)
+3. Within RStudio run the project file `factions.Rproj` (This will correct any of the pathing issue)
+4. Install the packages in processing.R and website.Rmd
+5. Run website.Rmd either line-by-line (ctrl-enter) or clicking the run Document button.
+
+If you have any questions or complications feel free to message Daniel on slack.
+
 
 ## Notes from [meeting](https://docs.google.com/document/d1PBrhhpL8MkmPmdMxncdV99OdHcZky8WWsGp5ttvisY4/edit)
 
 Focus: Illinois State politics (the General Assembly is defined by a house and senate -- Note that this is different from the US house and senate but has similar structure). We can also look into a Chicago level analysis, other State and/or National level question if we have the time.
+
 [Illinois State Politics](https://en.wikipedia.org/wiki/Illinois_General_Assembly)
 
 Political entity: State: bi-camerate system (house and senate, nebraska is uni-camerate).
 
 Illinois senate (upper): The Illinois Senate is made up of 59 senators elected from individual legislative districts determined by population; redistricted every 10 years, based on the 2010 U.S. census each senator represents approximately 217,468 people
+
 [Illinois House](https://en.wikipedia.org/wiki/Illinois_House_of_Representatives)
 
 Illinois house of representative (lower): each senate district is split into 2 house districts.
+
 [Illinois Senate](https://en.wikipedia.org/wiki/Illinois_Senate)
 
 ### Tools
+
 
 Spatial: sf (R package for manipulating shapefiles).
 tigris : census shapefile API
