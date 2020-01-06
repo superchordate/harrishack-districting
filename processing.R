@@ -28,14 +28,14 @@ blue <- "#3333FF"
 red <- "#E81B23"
 ind <- "#B4B4B4"
 
-# Data
-legislators <- read_csv("data/legislators-current.csv")
-committees <- fromJSON("data/committees-current.json") %>%
-  as_tibble()
-committees$membership <- NA
-membership <- fromJSON("data/committee-membership-current.json")
-committees$membership <- sapply(seq_len(nrow(committees)),
-                                function(i) membership[committees$thomas_id[i]])
+# Data (ignore this unless you're trying to rebuild the data)
+#legislators <- read_csv("data/legislators-current.csv")
+#committees <- fromJSON("data/committees-current.json") %>%
+#  as_tibble()
+#committees$membership <- NA
+#membership <- fromJSON("data/committee-membership-current.json")
+#committees$membership <- sapply(seq_len(nrow(committees)),
+ #                               function(i) membership[committees$thomas_id[i]])
 
 
 codes <- fips_codes %>%
