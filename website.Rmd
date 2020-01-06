@@ -1,0 +1,87 @@
+---
+title: "Political Maps"
+author: "Daniel Silva-Inclan"
+runtime: shiny
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: row
+    social: menu
+    theme: readable
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shinycssloaders)
+library(tidyverse)
+source(file = paste0(getwd(), "/processing.R"))
+congress <- read_congress()
+senate <- read_senate()
+
+```
+
+Sidebar {.sidebar}
+================================================================================
+```{r sidebar, time_it = TRUE}
+tabsetPanel(type = 'tabs',
+            tabPanel("test"))
+
+```
+
+Congress
+================================================================================
+
+Row
+--------------------------------------------------------------------------------
+
+### Score
+
+```{r a}
+```
+
+### Congress
+
+```{r house, timeit = TRUE}
+congress_parliament_plot()
+```
+
+Row 
+--------------------------------------------------------------------------------
+
+### US Map
+
+```{r congress_map}
+congress_map(congress)
+```
+
+Senate
+================================================================================
+
+Row
+--------------------------------------------------------------------------------
+
+### Score
+
+```{r senate_score}
+```
+
+### Senate
+
+```{r senate}
+senate_parliament_plot()
+```
+
+Row 
+--------------------------------------------------------------------------------
+
+### US Map
+
+```{r senate_map}
+senate_map(senate)
+```
+
+
+
+
+About
+================================================================================
