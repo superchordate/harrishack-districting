@@ -97,8 +97,8 @@ congress_map <- function(congress){
                 popup = popup)
 }
 
-congress_parliament_plot <- function(interaction=TRUE){
-  congresspeople <- legislators %>%
+congress_parliament_plot <- function(congress, interaction=TRUE){
+  congresspeople <- congress %>%
     filter(!is.na(district)) %>%
     select(party, full_name, state, district) %>%
     arrange(party)

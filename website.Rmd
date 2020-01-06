@@ -42,7 +42,7 @@ Row
 ### Congress
 
 ```{r house, timeit = TRUE}
-congress_parliament_plot()
+congress_parliament_plot(congress)
 ```
 
 Row 
