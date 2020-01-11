@@ -19,7 +19,11 @@ ui = function() shinyUI( fluidPage(
     p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
 
     br(),    
-    div( style = 'width: 600px; max-width: 100%; ', textInput( 'address', label = NULL, placeholder = 'Enter Your Street Address', width = '100%' ) ),
+    div( 
+      style = 'width: 600px; max-width: 100%; ', 
+      textInput( 'address', label = NULL, placeholder = 'Enter Your Street Address', width = '100%' ),
+      onpress = 'if( (event.keyCode ? event.keyCode : event.which) == "13" ) $("#subaddress").click();'
+    ),
     div( actionButton( 'subaddress', label = 'Submit' ) ),    
     uiOutput('latlng'),
     
