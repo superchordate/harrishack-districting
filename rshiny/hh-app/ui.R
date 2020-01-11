@@ -18,7 +18,7 @@ ui = function() shinyUI( fluidPage(
     h1( 'No Quorum or Split-Vote', style = 'font-family: Oswald; font-size: 42pt; ' ),
     p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
 
-    div( 
+    div( class = 'row',
 
       div( class = 'col-md-3', 
       style = 'min-height: 750px;  min-width: 300px; vertical-align: top; ',

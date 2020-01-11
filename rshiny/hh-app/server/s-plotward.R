@@ -27,7 +27,7 @@ output[[ 'myward' ]] = renderLeaflet({
                         weight = 1,
                         stroke = TRUE) %>%
             addPolylines(data = sf,
-                        color = c( 'black', 'blue' ),
+                        color = c( '#ff7f0e', '#1f77b4' ),
                         weight = 4,
                         stroke = TRUE)
 
@@ -66,7 +66,7 @@ output[[ 'wardlabel' ]] = renderUI({
                     )
                 ),
                 p( 
-                    style='font-style: italic; color: blue; margin-top: 5px;', 
+                    style='font-style: italic; color: #1f77b4; margin-top: 5px;', 
                     'Blue line = Compact (Theoretical) District' 
                 ),
               div( 
