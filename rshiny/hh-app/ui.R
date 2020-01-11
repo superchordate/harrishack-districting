@@ -19,16 +19,17 @@ ui = function() shinyUI( fluidPage(
     p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
 
     br(),    
-    div( style = 'width: 600px; max-width: 100%; ', textInput( 'address', label = NULL, placeholder = 'Enter Your Address', width = '100%' ) ),
+    div( style = 'width: 600px; max-width: 100%; ', textInput( 'address', label = NULL, placeholder = 'Enter Your Street Address', width = '100%' ) ),
     div( actionButton( 'subaddress', label = 'Submit' ) ),    
     uiOutput('latlng'),
     
-    br(),
-    div( 
-      style = 'padding: 15px; background-color: white; display: inline-block; ',
-      plotlyOutput( 'congress_parliament_plot', height = 300, width = 600 - 30 )
-    ),
+    #br(),
+    #div( 
+    #  style = 'padding: 15px; background-color: white; display: inline-block; ',
+    #  plotlyOutput( 'congress_parliament_plot', height = 300, width = 600 - 30 )
+    #),
 
+    uiOutput( 'wardlabel' ),
     plotlyOutput( 'myward', height = 300, width = 600 ),
     
     #div( style = 'margin: 15px; display: inline-block; ', 

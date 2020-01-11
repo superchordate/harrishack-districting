@@ -4,6 +4,7 @@ require( plotly )
 require( ggparliament )
 require( dplyr )
 require( stringr )
+require( sf )
 
 #require( leaflet )
 #require( leaflet.providers )

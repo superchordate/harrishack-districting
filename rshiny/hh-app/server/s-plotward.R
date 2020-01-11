@@ -1,8 +1,6 @@
 output[[ 'myward' ]] = renderPlotly({    
 
-    if( is.null(latlon()) ) return(NULL)
-    
-    plot_ly( findshape( wards, lat = latlon()[1,1], lon = latlon()[1,2] ) )
+    if( !is.null(myward()) ) plot_ly( myward() )
 
 })
 
@@ -17,3 +15,12 @@ findshape = function( sf, lat, lon ){
     return( sf[which(st_intersects(pnt_sf, sf, sparse = FALSE)), ] )
 
 }
+
+myward = reactive({
+    if( is.null(latlon()) ) return(NULL)    
+    findshape( wards, lat = latlon()[1,1], lon = latlon()[1,2] )
+})
+
+output[[ 'wardlabel' ]] = renderUI({ 
+    if( !is.null( myward() ) ) h3( cc( 'Ward ', myward()$WARD ) ) 
+})

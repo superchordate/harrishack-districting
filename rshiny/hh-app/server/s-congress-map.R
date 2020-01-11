@@ -1,4 +1,4 @@
-output[[ 'congressmap' ]] = renderLeaflet({
+if(F) output[[ 'congressmap' ]] = renderLeaflet({
     
     popup <- paste(sep = "<br/>",
         paste0("<b>Representative: </b>", congress$full_name),
