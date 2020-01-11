@@ -1,0 +1,5 @@
+/* Put your generic CSS, shared across apps, here. */
+
+body {  font-family: 'Open Sans', sans-serif; color: #737373; }
+ul { list-style: none; margin: 0; padding: 0; display: inline-block; }
+p { margin: 0; padding: 0; }
