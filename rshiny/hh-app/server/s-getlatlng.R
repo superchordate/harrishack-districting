@@ -25,7 +25,14 @@ latlon = reactive({
     t = input$subaddress
 
     addr = isolate( input$address )
-    if( nchar( addr ) > 0 ) return( nominatim_osm( addr ) )
+
+    if( nchar( addr ) > 0 ) {
+
+      if( !grepl( 'chicago', addr, ignore.case = TRUE ) ) addr %<>% cc( ', Chicago, IL' )
+
+      return( nominatim_osm( addr ) )
+
+    }
 
 })
 
