@@ -1,6 +1,6 @@
 output[[ 'myward' ]] = renderPlotly({    
 
-    if( !is.null(myward()) ) plot_ly( myward() )
+    if( !is.null(myward()) ) plot_ly( myward() ) %>% config(displayModeBar = F)
 
 })
 
