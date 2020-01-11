@@ -97,39 +97,42 @@ congress_map <- function(congress){
                 popup = popup)
 }
 
-congress_parliament_plot <- function(congress, interaction=TRUE){
+congress_parliament_plot <- function(congress, red, interaction=TRUE){
 
   congresspeople <- congress %>%
     filter(!is.na(district)) %>%
     select(party, full_name, state, district) %>%
     arrange(party)
 
-  politicians <- congresspeople %>%
-    select(party) %>%
-    group_by(party) %>%
-    count(name = "seats") %>%
-    mutate(year = 2018,
-           country = "USA",
-           house = "Representatives",
-           color = case_when(party == "Republican" ~ red,
-                             party == "Democrat" ~ blue,
-                             TRUE ~ ind),
-           party_short = case_when(party == "Republican" ~ "GOP",
-                                   party == "Democrat" ~ "Dem",
-                                   TRUE ~ "Ind"),
-           government = case_when(party == "Republican" ~ 1,
-                                  party == "Democrat" ~ 0,
-                                  TRUE ~ 2)) %>%
-    ungroup() %>%
-    parliament_data(type = "semicircle",
-                    parl_rows = 10,
-                    party_seats = .$seats) %>%
-    mutate(full_name = congresspeople$full_name,
-           state = congresspeople$state,
-           district = congresspeople$district,
-           Politician = paste0(full_name,
-                               " (", substr(party, 1, 1), "-", state, " ",
-                               district, "th District)"))
+  politicians = data.frame( table( congresspeople$party ) )
+    names(politicians) = c( 'party', 'seats' )
+
+  politicians %<>%
+      mutate(
+        year = 2018,
+        country = "USA",
+        house = "Representatives",
+        color = case_when(party == "Republican" ~ red,
+                              party == "Democrat" ~ blue,
+                              TRUE ~ ind),
+        party_short = case_when(party == "Republican" ~ "GOP",
+                                    party == "Democrat" ~ "Dem",
+                                    TRUE ~ "Ind"),
+        government = case_when(party == "Republican" ~ 1,
+                                    party == "Democrat" ~ 0,
+                                    TRUE ~ 2)) %>%
+      ungroup()
+      
+      politicians %<>%
+        parliament_data(type = "semicircle",
+                      parl_rows = 10,
+                      party_seats = .$seats) %>%
+      mutate(full_name = congresspeople$full_name,
+            state = congresspeople$state,
+            district = congresspeople$district,
+            Politician = paste0(full_name,
+                                " (", substr(party, 1, 1), "-", state, " ",
+                                district, "th District)"))
   
   parliament <- ggplot(politicians) +
     aes(x, y, color = party_short, text = Politician) +

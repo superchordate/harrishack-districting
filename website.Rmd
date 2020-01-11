@@ -17,10 +17,12 @@ require(shinycssloaders)
 require(tidyverse)
 require(shiny)
 
-source(file = paste0(getwd(), "/processing.R"))
-
-congress <- read_congress()
-senate <- read_senate()
+# run data prep to create pre-cached/compressed data.
+# future runs will load this data which will be much faster.
+# while in deveopment I've commented this out since source will change.
+#if( !file.exists('source.RData') ) source( 'data-prep-flexdash.R')
+source( 'data-prep-flexdash.R')
+load('source.RData')
 
 ```
 
@@ -46,7 +48,7 @@ Row
 ### Congress
 
 ```{r house, timeit = TRUE}
-congress_parliament_plot(congress)
+congress_parliament_plot(congress, red)
 ```
 
 Row 
@@ -55,7 +57,7 @@ Row
 ### US Map
 
 ```{r congress_map}
-congress_map(congress)
+#congress_map(congress)
 ```
 
 Senate
@@ -72,7 +74,7 @@ Row
 ### Senate
 
 ```{r senate}
- senate_parliament_plot(senate)
+#senate_parliament_plot(senate)
 ```
 
 Row 
@@ -81,7 +83,7 @@ Row
 ### US Map
 
 ```{r senate_map}
-senate_map(senate)
+#senate_map(senate)
 ```
 
 
