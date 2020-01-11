@@ -25,6 +25,7 @@ latlon = reactive({
     t = input$subaddress
 
     addr = isolate( input$address )
+    if( is.null(addr)) return(NULL)
 
     if( nchar( addr ) > 0 ) {
 

@@ -33,14 +33,19 @@ output[[ 'warddata' ]] = renderUI({
 
         print( rownames(dt))
 
-      return(div(
+      return(div( style = 'width: 100%; ', 
 
-         h3( 'Compactness Score' ),
-          plotlyOutput( 'scores' ),
+          div(
+            h3( 'Compactness Score' ),
+            plotlyOutput( 'scores' )
+          )
+          ,
 
           # Income dist.
-          h3( 'Demographics' ),
-          plotlyOutput( 'chincome' )
+          div(
+            h3( 'Demographics' ),
+            plotlyOutput( 'chincome' )
+          )
 
       ))
 

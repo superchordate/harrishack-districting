@@ -13,41 +13,41 @@ ui = function() shinyUI( fluidPage(
     tags$title( 'HarrisHack')
   ),
 
-  mainPanel(
+  mainPanel( width = 12,
     
     h1( 'No Quorum or Split-Vote', style = 'font-family: Oswald; font-size: 42pt; ' ),
     p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
 
     div( class = 'row',
 
-      div( class = 'col-md-3', 
-      style = 'min-height: 750px;  min-width: 300px; vertical-align: top; ',
+      div( class = 'col-md-4 col-sm-12', 
+      #style = 'min-height: 750px;  min-width: 300px; vertical-align: top; ',
 
         br(),
         uiOutput('wardmapui'),
+        br(), br(),
+        br()
         
         #div( style = 'margin: 15px; display: inline-block; ', 
         #  leafletOutput( 'congressmap', width = 800, height = 400  )
         #)
     ),
 
-    div( class = 'col-md-3',
+    div( class = 'col-md-4 col-sm-12',
       uiOutput('alderman')
     ),
 
-    div(  class = 'col-md-3', 
-
-      style = 'max-width: 48%; vertical-align: top; padding: 20px; ',
+    div(  class = 'col-md-4 col-sm-12', 
       uiOutput('warddata')
-    ),
+    )
+
+  )
+  ),
 
       
       h3( 
         'HarrisHack 2020', 
         style = 'font-family: Raleway; font-size: 16pt; position: fixed; bottom: 0; right: 0; padding: 15px; padding-right: 20pt; ' 
       )
-
-  )
-  )
   
 ))
