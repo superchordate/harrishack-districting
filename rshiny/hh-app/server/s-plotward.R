@@ -20,20 +20,14 @@ output[[ 'myward' ]] = renderLeaflet({
                 latlon()[1,2]
             ) %>%
             addPolygons(data = myward(), 
-                        color = "#0066ff", 
-                        fillOpacity = 0.5, 
+                        color = "#ffffff", 
+                        fillOpacity = 0.8, 
                         weight = 1,
                         stroke = TRUE) %>%
             addPolylines(data = myward(),
-                        fillOpacity = 0,
-                        color = colors,
+                        color = 'black',
                         weight = 4,
-                        stroke = TRUE) %>%
-            addPolygons(data = myward(),
-                        color = "#0066ff",
-                        stroke = TRUE,
-                        weight = 1,
-                        fillOpacity = 0)
+                        stroke = TRUE)
 
         #plot_ly( myward() ) %>% config(displayModeBar = F)
     }
@@ -58,5 +52,13 @@ myward = reactive({
 })
 
 output[[ 'wardlabel' ]] = renderUI({ 
-    if( !is.null( myward() ) ) h3( cc( 'Ward ', myward()$WARD ) ) 
+    if( !is.null( myward() ) ) {
+        div(
+            style = 'background-color: #bfbfbf; margin-bottom: 10px; padding: 0px; ',
+            h3( 
+                cc( 'WARD ', myward()$WARD ), 
+                style = 'padding: 10px; font-family: Oswald; font-size: 20pt; color: White; '
+            )
+        ) 
+    }
 })
