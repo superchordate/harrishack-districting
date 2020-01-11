@@ -1,6 +1,7 @@
 output[[ 'chincome' ]] = renderPlotly({
    
     dt = wdata()
+    if( is.null(dt) ) return(NULL)
     dt = dt[ grep( '_.+K$', rownames(dt), value = T ), ]
     dt$val = as.numeric( dt$val )
     dt$val = dt$val / sum( dt$val )
@@ -17,6 +18,7 @@ output[[ 'chincome' ]] = renderPlotly({
 output[[ 'scores' ]] = renderPlotly({
    
     dt = wdata()
+    if( is.null(dt) ) return(NULL)
 
     scores = c( "polsby_popper", "schwartzberg", "convex_hull", "reock" )
     scores = c( cc( scores, '_local' ), cc( scores, '_actual' ) )
@@ -26,6 +28,8 @@ output[[ 'scores' ]] = renderPlotly({
 
     dt$type = ifelse( grepl( '_local', dt$name ), 'Compact', 'Actual' )
     dt$name = gsub( '_(local|actual)', '', dt$name )
+
+    dt %<>% filter( grepl( 'popper', dt$name ) ) %>% mutate( name = 'GerryScore' )
 
     dt %<>% split( dt$type )
     #browser()
