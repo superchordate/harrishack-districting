@@ -1,6 +1,7 @@
 rshiny/publish-app.R
 .Ruserdata
 data/
+*.geojson
 
 # History files
 .Rhistory

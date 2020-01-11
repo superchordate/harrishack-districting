@@ -29,10 +29,20 @@ rdrw = read.any( 'data/Race-ineq-statistics-Export/Real-Race_Percentage_by_Ward.
 colnames(rdrw) = cc( colnames(rdrw), '_actual' )
 names(rdrw)[1] = c( 'WARD' )
 
-wards %<>% inner_join( idrw, by = 'WARD' ) %>% inner_join( rdrw, by = 'WARD' )
+gm = read.any( 'data/local_gerry.csv')
+names(gm) = cc( names(gm), '_local' )
+wards %<>% left_join( gm, by = c( 'WARD' = 'ward_local') ) 
+
+gm = read.any( 'data/real_gerry.csv' )
+names(gm) = cc( names(gm), '_actual' )
+wards %<>% left_join( gm, by = c( 'WARD' ='ward_actual' ) ) 
+
+ci = read.any( 'data/ward_contact_info.csv' )
+wards %<>% left_join( ci , by = c( 'WARD' = 'ward'  ) )
+
+wards %<>% left_join( idrw, by = 'WARD' ) %>% inner_join( rdrw, by = 'WARD' )
 
 save(
-    congress, senate, wards,
-    blue, red, ind, codes,
+    wards,
     file = 'rshiny/hh-app/source.RData'
 )

@@ -7,6 +7,8 @@ output[[ 'myward' ]] = renderLeaflet({
          #   density = 2, angle = c(45, 135),
          #                                 fillOddEven = TRUE
         #)
+
+        sf = read_sf(cc( 'shapefiles/ward-', myward()$WARD, '.geojson' ))
  
         leaflet::leaflet(
             options = leafletOptions(zoomControl = FALSE)
@@ -19,13 +21,13 @@ output[[ 'myward' ]] = renderLeaflet({
                 latlon()[1,1],
                 latlon()[1,2]
             ) %>%
-            addPolygons(data = myward(), 
-                        color = "#ffffff", 
+            addPolygons(data = sf, 
+                        color = c( "#ffffff", 'transparent' ), 
                         fillOpacity = 0.8, 
                         weight = 1,
                         stroke = TRUE) %>%
-            addPolylines(data = myward(),
-                        color = 'black',
+            addPolylines(data = sf,
+                        color = c( 'black', 'blue' ),
                         weight = 4,
                         stroke = TRUE)
 
@@ -54,11 +56,27 @@ myward = reactive({
 output[[ 'wardlabel' ]] = renderUI({ 
     if( !is.null( myward() ) ) {
         div(
-            style = 'background-color: #bfbfbf; margin-bottom: 10px; padding: 0px; ',
-            h3( 
-                cc( 'WARD ', myward()$WARD ), 
-                style = 'padding: 10px; font-family: Oswald; font-size: 20pt; color: White; '
-            )
-        ) 
+            div( 
+                style = ' margin-bottom: 5px; ', 
+                div(
+                    style = 'background-color: #bfbfbf;padding: 0px; ',
+                    h3( 
+                        cc( 'WARD ', myward()$WARD ), 
+                        style = 'padding: 10px; font-family: Oswald; font-size: 20pt; color: White; '
+                    )
+                ),
+                p( 
+                    style='font-style: italic; color: blue; margin-top: 5px;', 
+                    'Blue line = Compact (Theoretical) District' 
+                ),
+              div( 
+                  style = 'max-width: 600px; height: 500px; margin-top: 10px;  ', 
+                  leafletOutput( 'myward' ),
+                 br(),
+                p( 
+                    'When the percentage of your race is your real district is much lower than that in the default district (blue circle), and the gerrymandering score is high, resence of your race might be lowered by the shape of the current district, you could check out the available resources for help.'    
+                )
+              )
+    ))
     }
 })

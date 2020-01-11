@@ -14,12 +14,13 @@ ui = function() shinyUI( fluidPage(
   ),
 
   mainPanel(
+    
+    h1( 'No Quorum or Split-Vote', style = 'font-family: Oswald; font-size: 42pt; ' ),
+    p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
 
-    div(
-      style = 'display: inline-block; width: 48%; min-width: 400px; ',
+    div( style = 'width: 100%; ', 
 
-      h1( 'No Quorum or Split-Vote', style = 'font-family: Oswald; font-size: 42pt; ' ),
-      p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
+      div( class = 'col-md-6', style = 'width: 48%; min-height: 750px;  min-width: 300px; vertical-align: top; ',
 
       br(),    
       div( 
@@ -40,8 +41,7 @@ ui = function() shinyUI( fluidPage(
       #),
 
       div(
-        uiOutput( 'wardlabel' ), 
-        style = 'max-width: 600px; height: 500px; margin-top: 10px;  ', leafletOutput( 'myward' ) 
+        uiOutput( 'wardlabel' )
       ),
       
       #div( style = 'margin: 15px; display: inline-block; ', 
@@ -57,10 +57,11 @@ ui = function() shinyUI( fluidPage(
     ),
 
     div( 
-      style = 'display: inline-block; width: 48%; min-width: 400px; ',
+      style = 'max-width: 48%; vertical-align: top; padding: 20px; ',
       uiOutput('warddata')
     )
 
+  )
   )
   
 ))
