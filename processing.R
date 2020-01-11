@@ -1,17 +1,17 @@
 # Daniel Silva-Inclan (badbayesian@gmail.com)
 
 # Libraries
-library(tidyverse) # df manipulation
-library(tigris) # Census shapefile API
-library(leaflet) # Interactive maps
-library(ProPublicaR) # US voting API
-library(stringi) # String manipulation
-library(ggparliament) # Plotting parliament
-library(jsonlite) # read JSON
-library(plotly) # Interactive plots
-library(sf) # Spatial manipulation
-library(lwgeom) # Shape calculation
-library(HatchedPolygons) # Hatched polygon ploting
+require(tidyverse) # df manipulation
+require(tigris) # Census shapefile API
+require(leaflet) # Interactive maps
+require(ProPublicaR) # US voting API
+require(stringi) # String manipulation
+require(ggparliament) # Plotting parliament
+require(jsonlite) # read JSON
+require(plotly) # Interactive plots
+require(sf) # Spatial manipulation
+require(lwgeom) # Shape calculation
+require(HatchedPolygons) # Hatched polygon ploting
 
 # Hatching only works with sp...
 options(tigris_class = "sp")
@@ -98,10 +98,12 @@ congress_map <- function(congress){
 }
 
 congress_parliament_plot <- function(congress, interaction=TRUE){
+
   congresspeople <- congress %>%
     filter(!is.na(district)) %>%
     select(party, full_name, state, district) %>%
     arrange(party)
+
   politicians <- congresspeople %>%
     select(party) %>%
     group_by(party) %>%
@@ -140,12 +142,14 @@ congress_parliament_plot <- function(congress, interaction=TRUE){
          subtitle = "Party that controls the House highlighted.") +
     scale_colour_manual(values = politicians$color, 
                         limits = politicians$party_short)
+
   parliament$layers[[1]] <- NULL
   if (interaction) {
     ggplotly(parliament, tooltip = "text")
   } else {
     parliament
   }
+  
 }
 
 read_congress <- function(save_loc =
@@ -214,7 +218,9 @@ setup_senate <- function(gerrymandering=FALSE,
 }
 
 senate_map <- function(senate){
+
   names <- str_split(senate$senators, " and ", simplify = TRUE)
+
   popup <- paste(sep = "<br/>",
                  paste0("<b>State: </b>", senate$STUSPS),
                  paste0("<b>Senator 1: </b>", names[,1]),
@@ -251,50 +257,52 @@ senate_map <- function(senate){
                 stroke = TRUE,
                 weight = 1,
                 fillOpacity = 0)
+                
 }
 
-senate_parliament_plot <- function(interaction=TRUE){
-  senators <- legislators %>%
-    filter(type == "sen") %>%
-    select(party, full_name, state) %>%
-    arrange(party)
+senate_parliament_plot <- function(senate, interaction=TRUE){
   
+  senators <- senate %>%
+    #filter(type == "sen") %>%
+    select(party_merged, NAME, STUSPS) %>%
+    arrange(party_merged)
+
   politicians <- senators %>%
-    select(party) %>%
-    group_by(party) %>%
+    select(party_merged) %>%
+    group_by(party_merged) %>%
     count(name = "seats") %>%
     mutate(year = 2018,
            country = "USA",
            house = "Senate",
-           color = case_when(party == "Republican" ~ red,
-                             party == "Democrat" ~ blue,
+           color = case_when(party_merged == "Republican" ~ red,
+                             party_merged == "Democrat" ~ blue,
                              TRUE ~ ind),
-           party_short = case_when(party == "Republican" ~ "GOP",
-                                   party == "Democrat" ~ "Dem",
+           party_short = case_when(party_merged == "Republican" ~ "GOP",
+                                   party_merged == "Democrat" ~ "Dem",
                                    TRUE ~ "Ind"),
-           government = case_when(party == "Republican" ~ 0,
-                                  party == "Democrat" ~ 1,
+           government = case_when(party_merged == "Republican" ~ 0,
+                                  party_merged == "Democrat" ~ 1,
                                   TRUE ~ 2)) %>%
     ungroup() %>%
     parliament_data(type = "semicircle",
                     parl_rows = 4,
                     party_seats = .$seats) %>%
-    mutate(full_name = senators$full_name,
-           state = senators$state,
+    mutate(full_name = senators$NAME,
+           state = senators$STUSPS,
            Politician = paste0(full_name,
-                               " (", substr(party, 1, 1), "-", state, ")"))
-  
+                               " (", substr(party_merged, 1, 1), "-", state, ")"))
+                               
   parliament <- ggplot(politicians) +
     aes(x, y, color = party_short,
         text = Politician) +
-    geom_parliament_seats() + 
+    geom_parliament_seats() +
     geom_highlight_government(government == 0) +
     draw_majoritythreshold(n = 51, label = TRUE, type = 'semicircle') +
     theme_ggparliament() +
-    labs(color = NULL, 
+    labs(color = NULL,
          title = "United States Senate",
          subtitle = "Party that controls the Senate highlighted.") +
-    scale_colour_manual(values = politicians$color, 
+    scale_colour_manual(values = politicians$color,
                         limits = politicians$party_short)
   parliament$layers[[1]] <- NULL
   if (interaction) {

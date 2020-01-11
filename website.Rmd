@@ -11,10 +11,14 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(flexdashboard)
-library(shinycssloaders)
-library(tidyverse)
+
+require(flexdashboard)
+require(shinycssloaders)
+require(tidyverse)
+require(shiny)
+
 source(file = paste0(getwd(), "/processing.R"))
+
 congress <- read_congress()
 senate <- read_senate()
 
@@ -68,7 +72,7 @@ Row
 ### Senate
 
 ```{r senate}
-senate_parliament_plot()
+ senate_parliament_plot(senate)
 ```
 
 Row 
