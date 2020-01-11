@@ -9,14 +9,33 @@ ui = function() shinyUI( fluidPage(
     tags$link(rel = "stylesheet", type = "text/css", href = "general.css"),
     tags$link(rel = "stylesheet", type = "text/css", href = "specific.css"),
     tags$link(rel = "stylesheet", type = "text/css", href = "shiny-override.css"),
+    HTML( '<link href="https://fonts.googleapis.com/css?family=Oswald|Raleway|Open Sans&display=swap" rel="stylesheet">' ),
     tags$title( 'HarrisHack')
   ),
 
-  mainPanel( 
+  mainPanel(
+
+    h1( 'No Quorum or Split-Vote', style = 'font-family: Oswald; font-size: 42pt; ' ),
+    p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
+
+    br(),    
+    div( style = 'width: 600px; max-width: 100%; ', textInput( 'address', label = NULL, placeholder = 'Enter Your Address', width = '100%' ) ),
+    div( actionButton( 'subaddress', label = 'Submit' ) ),    
+    uiOutput('latlng'),
     
-    div( style = 'margin: 15px; display: inline-block; ', 
-      plotlyOutput( 'congress_parliament_plot', width = 800, height = 400  )
-    )
+    br(),
+    div( 
+      style = 'padding: 15px; background-color: white; display: inline-block; ',
+      plotlyOutput( 'congress_parliament_plot', height = 300, width = 600 - 30 )
+    ),
+    
+    #div( style = 'margin: 15px; display: inline-block; ', 
+    #  leafletOutput( 'congressmap', width = 800, height = 400  )
+    #)
+
+    
+    h3( 'HarrisHack 2020', style = 'font-family: Raleway; font-size: 20pt; position: fixed; bottom: 0; right: 0; padding: 15px; padding-right: 20pt; ' ),
+
   )
   
 ))

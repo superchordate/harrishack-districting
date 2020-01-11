@@ -48,9 +48,9 @@ output[[ 'congress_parliament_plot' ]] = renderPlotly({
   
   parliament <- ggplot(politicians()) +
     aes(x, y, color = party_short, text = Politician) +
-    geom_parliament_seats() + 
+    geom_parliament_seats( size = 2 ) + 
     geom_highlight_government(government == 0) +
-    draw_majoritythreshold(n = 218, label = TRUE, type = 'semicircle') +
+    draw_majoritythreshold(n = 218, label = FALSE, type = 'semicircle') +
     theme_ggparliament() +
     labs(color = NULL, 
          title = "United States House of Representatives",
@@ -61,7 +61,7 @@ output[[ 'congress_parliament_plot' ]] = renderPlotly({
   parliament$layers[[1]] <- NULL
 
   if (interaction) {
-    ggplotly(parliament, tooltip = "text")
+    ggplotly(parliament, tooltip = "text") %>% config(displayModeBar = F)
   } else {
     parliament
   }

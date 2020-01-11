@@ -4,6 +4,8 @@ require( plotly )
 require( ggparliament )
 require( dplyr )
 require( stringr )
+require( leaflet )
+require( leaflet.providers )
 
 # clear variables to reset workspace.
 rm( list= ls() )
