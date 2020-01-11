@@ -10,5 +10,5 @@ senate <- read_senate()
 save(
     congress, senate, 
     blue, red, ind, codes,
-    file = 'r-shiny-app/source.RData'
+    file = 'rshiny/app/source.RData'
 )
