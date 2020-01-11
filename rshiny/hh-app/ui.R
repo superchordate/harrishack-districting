@@ -28,6 +28,8 @@ ui = function() shinyUI( fluidPage(
       style = 'padding: 15px; background-color: white; display: inline-block; ',
       plotlyOutput( 'congress_parliament_plot', height = 300, width = 600 - 30 )
     ),
+
+    plotlyOutput( 'myward', height = 300, width = 600 ),
     
     #div( style = 'margin: 15px; display: inline-block; ', 
     #  leafletOutput( 'congressmap', width = 800, height = 400  )

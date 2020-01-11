@@ -19,7 +19,17 @@ nominatim_osm <- function(address = NULL)
   return(data.frame(lon = as.numeric(d$lon), lat = as.numeric(d$lat)))
 }
 
+latlon = reactive({
+
+    # reactivity.
+    t = input$subaddress
+
+    addr = isolate( input$address )
+    if( nchar( addr ) > 0 ) return( nominatim_osm( addr ) )
+
+})
+
 output[[ 'latlng' ]] = renderUI({
     t = input$subaddress
-    if( nchar( input$address ) > 0 ) p( paste0( nominatim_osm( input$address ), collapse = ', ' ) )
+    p( paste0( latlon(), collapse = ', ' ) )
 })
