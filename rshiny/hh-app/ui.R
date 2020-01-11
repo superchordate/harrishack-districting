@@ -22,7 +22,7 @@ ui = function() shinyUI( fluidPage(
     div( 
       style = 'width: 600px; max-width: 100%; ', 
       textInput( 'address', label = NULL, placeholder = 'Enter Your Street Address', width = '100%' ),
-      onpress = 'if( (event.keyCode ? event.keyCode : event.which) == "13" ) $("#subaddress").click();'
+      onkeyup = JS('if( (event.keyCode ? event.keyCode : event.which) == "13" ) $("#subaddress").click();')
     ),
     div( actionButton( 'subaddress', label = 'Submit' ) ),    
     uiOutput('latlng'),
