@@ -21,11 +21,14 @@ ui = function() shinyUI( fluidPage(
     br(),    
     div( 
       style = 'width: 600px; max-width: 100%; ', 
-      textInput( 'address', label = NULL, placeholder = 'Enter Your Street Address', width = '100%' ),
+      textInput(
+        'address', label = NULL, placeholder = 'Enter Your Street Address', width = '100%', 
+        value = '540 W Madison'
+      ),
       onkeyup = JS('if( (event.keyCode ? event.keyCode : event.which) == "13" ) $("#subaddress").click();')
     ),
     div( actionButton( 'subaddress', label = 'Submit' ) ),    
-    uiOutput('latlng'),
+    #uiOutput('latlng'),
     
     #br(),
     #div( 
@@ -34,14 +37,14 @@ ui = function() shinyUI( fluidPage(
     #),
 
     uiOutput( 'wardlabel' ),
-    plotlyOutput( 'myward', height = 300, width = 600 ),
+    div( style = 'max-width: 600px; height: 400ps; ', leafletOutput( 'myward' ) ),
     
     #div( style = 'margin: 15px; display: inline-block; ', 
     #  leafletOutput( 'congressmap', width = 800, height = 400  )
     #)
 
     
-    h3( 'HarrisHack 2020', style = 'font-family: Raleway; font-size: 20pt; position: fixed; bottom: 0; right: 0; padding: 15px; padding-right: 20pt; ' ),
+    h3( 'HarrisHack 2020', style = 'font-family: Raleway; font-size: 16pt; position: fixed; bottom: 0; right: 0; padding: 15px; padding-right: 20pt; ' ),
 
   )
   

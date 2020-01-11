@@ -7,6 +7,7 @@ require( stringr )
 require( sf )
 require( magrittr)
 require( htmlwidgets )
+require( leaflet )
 
 #require( leaflet )
 #require( leaflet.providers )
