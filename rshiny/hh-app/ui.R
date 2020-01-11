@@ -16,6 +16,7 @@ ui = function() shinyUI( fluidPage(
   mainPanel(
 
     div(
+      style = 'display: inline-block; width: 48%; min-width: 400px; ',
 
       h1( 'No Quorum or Split-Vote', style = 'font-family: Oswald; font-size: 42pt; ' ),
       p( 'Explore your representation based on 2010 districts. ', style = 'font-size: 14pt;' ),
@@ -55,7 +56,9 @@ ui = function() shinyUI( fluidPage(
 
     ),
 
-    div(
+    div( 
+      style = 'display: inline-block; width: 48%; min-width: 400px; ',
+      uiOutput('warddata')
     )
 
   )
